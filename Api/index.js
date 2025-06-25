@@ -13,7 +13,7 @@ const allowedOrigins = [
   "https://courseui.vercel.app",
   "https://www.germanacademy.co.uk",
   "http://localhost:5173",
-  
+  "https://course-app-six-bay.vercel.app/login"  
 ];
 
 // Middleware to parse JSON bodies
