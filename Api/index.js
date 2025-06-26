@@ -13,7 +13,7 @@ const allowedOrigins = [
   "https://courseui.vercel.app",
   "https://www.germanacademy.co.uk",
   "http://localhost:5173",
-  "https://course-app-six-bay.vercel.app/login"  
+  "https://course-app-six-bay.vercel.app"
 ];
 
 // Middleware to parse JSON bodies
@@ -24,7 +24,7 @@ app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like curl or mobile apps)
     if (!origin) return callback(null, true);
-    
+
     if (allowedOrigins.includes(origin)) {
       // Echo the origin back in the response header
       return callback(null, origin);
@@ -44,7 +44,7 @@ const StorageRoute = require("./Routes/storage")
 // Setup API routes
 app.use("/api/course", CourseRoute);
 app.use("/api/user", UserRoute);
-app.use("/api/storage",StorageRoute)
+app.use("/api/storage", StorageRoute)
 
 // Connect to MongoDB
 const connect = () => {
