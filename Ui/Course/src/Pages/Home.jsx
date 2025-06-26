@@ -155,15 +155,11 @@ const CourseTable = () => {
   const handleDuplicateCourse = async (course) => {
     setLoading(true);
     const token = getUser() && getUser().token;
-    await Req.post(
-      "/course/duplicateCourse",
-      course,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    await Req.post("/course/duplicateCourse", course, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         toast.success(res.data.message, {
           position: "top-right",
@@ -176,7 +172,7 @@ const CourseTable = () => {
           theme: "light",
           transition: Bounce,
         });
-        fetchCourses()
+        fetchCourses();
       })
       .catch((err) => {
         setLoading(false);
@@ -409,86 +405,90 @@ const CourseTable = () => {
                 </tr>
               </thead>
               <tbody>
-                {courses.map((course) => (
-                  <tr key={course._id}>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <img
-                          src={course.image_link}
-                          alt="Course Image"
+                {courses
+                  .filter((course) => course.image_link)
+                  .map((course) => (
+                    <tr key={course._id}>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <img
+                            src={course.image_link}
+                            alt="Course Image"
+                            style={{
+                              width: "45px",
+                              height: "45px",
+                              objectFit: "contain",
+                            }}
+                            className="rounded-circle"
+                          />
+                        </div>
+                      </td>
+                      <td>{course.course_title}</td>
+                      <td>{course.minAge + "-" + course.maxAge}</td>
+                      <td>
+                        <Tooltip
+                          sx={{ fontSize: "20px" }}
+                          title={course.short_description}
+                        >
+                          {course.short_description.split(" ").length > 10
+                            ? course.short_description
+                                .split(" ")
+                                .slice(0, 10)
+                                .join(" ") + "..."
+                            : course.short_description}
+                        </Tooltip>
+                      </td>
+                      <td>{course.bilingual}</td>
+                      <td>{course.level}</td>
+                      <td>{course.online_in_person}</td>
+                      <td>{course.group_private}</td>
+                      <td>{`${course.day} at ${course.time}`}</td>
+                      <td>{course.location}</td>
+                      <td>
+                        {convertMinutesToDurationInWords(course.duration)}
+                      </td>
+                      <td>{course.cost}</td>
+                      <td>
+                        <a
+                          href={course.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View More
+                        </a>
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        <div
                           style={{
-                            width: "45px",
-                            height: "45px",
-                            objectFit: "contain",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
                           }}
-                          className="rounded-circle"
-                        />
-                      </div>
-                    </td>
-                    <td>{course.course_title}</td>
-                    <td>{course.minAge + "-" + course.maxAge}</td>
-                    <td>
-                      <Tooltip
-                        sx={{ fontSize: "20px" }}
-                        title={course.short_description}
-                      >
-                        {course.short_description.split(" ").length > 10
-                          ? course.short_description
-                              .split(" ")
-                              .slice(0, 10)
-                              .join(" ") + "..."
-                          : course.short_description}
-                      </Tooltip>
-                    </td>
-                    <td>{course.bilingual}</td>
-                    <td>{course.level}</td>
-                    <td>{course.online_in_person}</td>
-                    <td>{course.group_private}</td>
-                    <td>{`${course.day} at ${course.time}`}</td>
-                    <td>{course.location}</td>
-                    <td>{convertMinutesToDurationInWords(course.duration)}</td>
-                    <td>{course.cost}</td>
-                    <td>
-                      <a
-                        href={course.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        View More
-                      </a>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        <Tooltip title="Delete course">
-                          <DeleteIcon
-                            onClick={() => handleDelete(course._id)}
-                            style={{ color: "red", cursor: "pointer" }}
-                          />
-                        </Tooltip>
+                        >
+                          <Tooltip title="Delete course">
+                            <DeleteIcon
+                              onClick={() => handleDelete(course._id)}
+                              style={{ color: "red", cursor: "pointer" }}
+                            />
+                          </Tooltip>
 
-                        <Tooltip title="Edit course">
-                          <ModeEditIcon
-                            onClick={() => navigate(`/update/${course._id}`)}
-                            style={{ color: "green", cursor: "pointer" }}
-                          />
-                        </Tooltip>
+                          <Tooltip title="Edit course">
+                            <ModeEditIcon
+                              onClick={() => navigate(`/update/${course._id}`)}
+                              style={{ color: "green", cursor: "pointer" }}
+                            />
+                          </Tooltip>
 
-                        <Tooltip title="Duplicate course">
-                          <FolderCopyIcon
-                            onClick={() => handleDuplicateCourse(course)}
-                            style={{ color: "blue", cursor: "pointer" }}
-                          />
-                        </Tooltip>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                          <Tooltip title="Duplicate course">
+                            <FolderCopyIcon
+                              onClick={() => handleDuplicateCourse(course)}
+                              style={{ color: "blue", cursor: "pointer" }}
+                            />
+                          </Tooltip>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
