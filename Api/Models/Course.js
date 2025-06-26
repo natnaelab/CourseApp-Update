@@ -1,97 +1,96 @@
 const mongoose = require("mongoose");
 
 const CourseSchema = new mongoose.Schema({
-  minAge: { 
-    type: Number, 
-    required: true 
-  },
-  maxAge:{
-    type:Number,
-    required:true,
-  },
-  bilingual: { 
-    type: String, 
+  minAge: {
+    type: Number,
     required: true
   },
-  level: { 
-    type: String, 
-    required: false 
+  maxAge: {
+    type: Number,
+    required: true,
   },
-  online_in_person: { 
-    type: String, 
-    required: true, 
-    enum: ["Online", "In-Person"] 
-  },
-  group_private: { 
-    type: String, 
-    required: true, 
-    enum: ["Group", "Private"] 
-  },
-  day: { 
-    type: String, 
-    required: true 
-  },
-  time: { 
+  bilingual: {
     type: String,
-    required: true 
+    required: true
   },
-  duration: { 
-    type: String, 
-    required: true 
+  level: {
+    type: String,
+    required: false
   },
-  course_title: { 
-    type: String, 
-    required: true 
+  online_in_person: {
+    type: String,
+    required: true,
+    enum: ["Online", "In-Person"]
   },
-  short_description: { 
-    type: String, 
+  group_private: {
+    type: String,
+    required: true,
+    enum: ["Group", "Private"]
   },
-  notes: { 
-    type: String, 
+  day: {
+    type: String,
+    required: true
   },
-  image_link: { 
-    type: String, 
-    required: true 
+  time: {
+    type: String,
+    required: true
   },
-  link: { 
-    type: String, 
-    required: true 
+  duration: {
+    type: String,
+    required: true
   },
-  group_name: { 
-    type: String, 
-    required: true 
+  course_title: {
+    type: String,
+    required: true
   },
-  teacher: { 
-    type: [String], 
-    required: true 
+  short_description: {
+    type: String,
   },
-  zoom_link: { 
-    type: String, 
-    required: false 
+  notes: {
+    type: String,
   },
-  location: { 
-    type: String, 
-    required: false 
+  image_link: {
+    type: String
   },
-  exam: { 
-    type: String, 
-    required: false 
+  link: {
+    type: String,
+    required: true
   },
-  max_students: { 
-    type: Number, 
-    required: false 
+  group_name: {
+    type: String,
+    required: true
   },
-  cost: { 
-    type: Number, 
-    required: false 
+  teacher: {
+    type: [String],
+    required: true
   },
-  frequency: { 
-    type: String, 
-    required: false 
+  zoom_link: {
+    type: String,
+    required: false
   },
-  course_book: { 
-    type: String, 
-    required: false 
+  location: {
+    type: String,
+    required: false
+  },
+  exam: {
+    type: String,
+    required: false
+  },
+  max_students: {
+    type: Number,
+    required: false
+  },
+  cost: {
+    type: Number,
+    required: false
+  },
+  frequency: {
+    type: String,
+    required: false
+  },
+  course_book: {
+    type: String,
+    required: false
   }
 }, { timestamps: true });
 
